@@ -17,6 +17,7 @@ namespace WebApi190910.Controllers
         {
             if (!string.IsNullOrEmpty(this.name) && this.name.Length < 10)
             {
+                throw new ArgumentException("name 長度不足");
                 yield return new ValidationResult("name 長度不足", new string[] { "name" });
             }
         }

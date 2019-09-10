@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using WebApi190910.ActionFilters;
 
 namespace WebApi190910
 {
@@ -11,6 +12,8 @@ namespace WebApi190910
         public static void Register(HttpConfiguration config)
         {
             // Web API 設定和服務
+
+            config.Filters.Add(new MyExceptionAttribute());
 
             var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
 
