@@ -15,6 +15,7 @@ namespace WebApi190910.Controllers
     /// <summary>
     /// 商品 APIs
     /// </summary>
+    [RoutePrefix("products")]
     public class ProductsController : ApiController
     {
         private FabricsEntities db = new FabricsEntities();
@@ -28,6 +29,7 @@ namespace WebApi190910.Controllers
         /// 取得所有商品
         /// </summary>
         /// <returns></returns>
+        [HttpGet, Route("")]
         public IQueryable<Product> GetProduct()
         {
             return db.Product;
@@ -39,7 +41,8 @@ namespace WebApi190910.Controllers
         /// <param name="id">商品ID (P.K.)</param>
         /// <returns></returns>
         [ResponseType(typeof(Product))]
-        public IHttpActionResult GetProduct(int id)
+        [HttpGet, Route("{id:int}", Name = "GetProductById")]
+        public IHttpActionResult GetProductById(int id)
         {
             Product product = db.Product.Find(id);
             if (product == null)
@@ -57,6 +60,7 @@ namespace WebApi190910.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [ResponseType(typeof(void))]
+        [HttpPut, Route("{id:int}")]
         public IHttpActionResult PutProduct(int id, Product product)
         {
             if (!ModelState.IsValid)
@@ -92,6 +96,7 @@ namespace WebApi190910.Controllers
 
         // POST: api/Products
         [ResponseType(typeof(Product))]
+        [HttpPost, Route("")]
         public IHttpActionResult PostProduct(Product product)
         {
             if (!ModelState.IsValid)
@@ -102,11 +107,12 @@ namespace WebApi190910.Controllers
             db.Product.Add(product);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = product.ProductId }, product);
+            return CreatedAtRoute("GetProductById", new { id = product.ProductId }, product);
         }
 
         // DELETE: api/Products/5
         [ResponseType(typeof(Product))]
+        [HttpDelete, Route("{id}")]
         public IHttpActionResult DeleteProduct(int id)
         {
             Product product = db.Product.Find(id);

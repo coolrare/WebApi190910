@@ -492,7 +492,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:WebApi190910.Controllers.ProductsController.GetProduct(System.Int32)">
+        <member name="M:WebApi190910.Controllers.ProductsController.GetProductById(System.Int32)">
             <summary>
             取得單筆商品
             </summary>
