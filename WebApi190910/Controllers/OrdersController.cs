@@ -27,17 +27,26 @@ namespace WebApi190910.Controllers
             return db.Order;
         }
 
+        [Route("orders/{*date:datetime}")]
+        public IQueryable<Order> GetOrderByDate(DateTime date)
+        {
+            var sd = date.Date;
+            var ed = date.AddDays(1).Date;
+            return db.Order.Where(p => p.OrderDate >= sd && p.OrderDate < ed );
+        }
+
         // GET: api/Orders/5
         [ResponseType(typeof(Order))]
-        public IHttpActionResult GetOrder(int id)
+        [HttpGet, Route("orders/{id:int}")]
+        public HttpResponseMessage GetOrder(int id)
         {
             Order order = db.Order.Find(id);
             if (order == null)
             {
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Ok(order);
+            return Request.CreateResponse(HttpStatusCode.OK, order);
         }
 
         // PUT: api/Orders/5
