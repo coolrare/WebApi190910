@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,6 +11,10 @@ namespace WebApi190910
         public static void Register(HttpConfiguration config)
         {
             // Web API 設定和服務
+
+            var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            
+            //json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             // Web API 路由
             config.MapHttpAttributeRoutes();
