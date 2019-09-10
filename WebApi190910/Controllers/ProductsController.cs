@@ -12,6 +12,9 @@ using WebApi190910.Models;
 
 namespace WebApi190910.Controllers
 {
+    /// <summary>
+    /// 商品 APIs
+    /// </summary>
     public class ProductsController : ApiController
     {
         private FabricsEntities db = new FabricsEntities();
@@ -21,13 +24,20 @@ namespace WebApi190910.Controllers
             db.Configuration.LazyLoadingEnabled = false;
         }
 
-        // GET: api/Products
+        /// <summary>
+        /// 取得所有商品
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<Product> GetProduct()
         {
             return db.Product;
         }
 
-        // GET: api/Products/5
+        /// <summary>
+        /// 取得單筆商品
+        /// </summary>
+        /// <param name="id">商品ID (P.K.)</param>
+        /// <returns></returns>
         [ResponseType(typeof(Product))]
         public IHttpActionResult GetProduct(int id)
         {
@@ -40,7 +50,12 @@ namespace WebApi190910.Controllers
             return Ok(product);
         }
 
-        // PUT: api/Products/5
+        /// <summary>
+        /// 更新商品資訊
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="product"></param>
+        /// <returns></returns>
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProduct(int id, Product product)
         {
