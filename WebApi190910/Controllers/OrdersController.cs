@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebApi190910.Models;
@@ -47,6 +48,25 @@ namespace WebApi190910.Controllers
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, order);
+        }
+
+        // GET: api/Orders/5
+        [ResponseType(typeof(Order))]
+        [HttpGet, Route("orders/{id:int}/raw")]
+        public HttpResponseMessage GetOrderID(int id)
+        {
+            Order order = db.Order.Find(id);
+            if (order == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                ReasonPhrase = "GOOD",
+                Content = new StringContent("酷奇資訊訂單" + order.OrderId, Encoding.GetEncoding("big5"))
+            };
         }
 
         // PUT: api/Orders/5
