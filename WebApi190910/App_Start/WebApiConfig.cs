@@ -13,8 +13,10 @@ namespace WebApi190910
             // Web API 設定和服務
 
             var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-            
+
             //json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
 
             // Web API 路由
             config.MapHttpAttributeRoutes();
